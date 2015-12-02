@@ -16,10 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions:
         [NSObject: AnyObject]?) -> Bool {
+        print("didFinishLaunchingWithOptions called")
+        var isLaunchedFromQuickAction = false
+        
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+          isLaunchedFromQuickAction = true
+          
+          handleQuickAction(shortcutItem)
+        } else {
+          
+          self.window?.backgroundColor = UIColor.whiteColor()
+          
+        }
             
         self.window?.backgroundColor = UIColor.whiteColor()
 
-        return true
+        return !isLaunchedFromQuickAction
     }
     
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
@@ -49,6 +61,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+  func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    // Handle Quick Actions
+    completionHandler(handleQuickAction(shortcutItem))
+  }
+  
+  enum Shortcut: String {
+    case openBlue = "OpenBlue"
+  }
+  
+  func handleQuickAction(shortcutItem: UIApplicationShortcutItem) -> Bool {
+    
+    var quickActionHandled = false
+    let type = shortcutItem.type.componentsSeparatedByString(".").last!
+    
+    if let shortcutType = Shortcut.init(rawValue: type) {
+      switch shortcutType {
+      case .openBlue:
+        self.window?.backgroundColor = UIColor(red: 151.0 / 255.0, green: 187.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
+        quickActionHandled = true
+      }
+    }
+   return quickActionHandled
+  }
 
 }
 

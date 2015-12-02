@@ -36,5 +36,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Open Blue</string>
+			<key>UIApplicationShortcutItemSubtitle</key>
+			<string>Open with Blue Background</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>$(PRODUCT_BUNDLE_IDENTIFIER).OpenBlue</string>
+			<key>UIApplicationShortcutItemIconFile</key>
+			<string>OpenBlue</string>
+		</dict>
+	</array>
 </dict>
 </plist>
